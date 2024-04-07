@@ -1,0 +1,21 @@
+server:
+  port: 808
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/hotel_db?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=CONVERT_TO_NULL&useSSL=false
+    username: root
+    password: Qq1072308185.
+  web:
+    resources:
+      static-locations: classpath:/static/
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+  global-config:
+    db-config:
+      id-type: assign_id
+      table-prefix: tbl_
+      logic-delete-field: deleted
+      logic-not-delete-value: 0
+      logic-delete-value: 1

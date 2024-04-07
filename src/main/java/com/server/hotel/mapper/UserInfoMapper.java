@@ -1,0 +1,9 @@
+package com.server.hotel.mapper;
+
+import com.github.yulichang.base.MPJBaseMapper;
+import com.server.hotel.entry.UserInfo;
+import org.apache.ibatis.annotations.Mapper;
+
+@Mapper
+public interface UserInfoMapper extends MPJBaseMapper<UserInfo> {
+}
