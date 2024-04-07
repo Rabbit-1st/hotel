@@ -28,8 +28,8 @@ public class RoomInfoServiceImpl extends MPJBaseServiceImpl<RoomInfoMapper, Room
         return this.getById(id);
     }
 
-    public IPage<RoomInfoVo> pageList(long current, long size, String order, String prop, String text) {
-        Page<RoomInfoVo> page = new Page<>(current, size);
+    public IPage<RoomInfo> pageList(long current, long size, String order, String prop, String text) {
+        Page<RoomInfo> page = new Page<>(current, size);
         if (order.equals("descending")) {
             order = "DESC";
         } else if (order.equals("ascending")) {
@@ -39,10 +39,8 @@ public class RoomInfoServiceImpl extends MPJBaseServiceImpl<RoomInfoMapper, Room
         queryWrapper.selectAll(RoomInfo.class)
                 .like(RoomInfo::getBedType, text)
                 .like(RoomInfo::getName, text)
-                .last("ORDER BY " + prop + " " + order)
-                .select(RoomImages::getImageUrl, RoomImages::getClass)
-                .leftJoin(RoomImages.class, RoomImages::getRoomId, RoomInfo::getRoomId);
-        return this.selectJoinListPage(page, RoomInfoVo.class, queryWrapper);
+                .last("ORDER BY " + prop + " " + order);
+        return this.selectJoinListPage(page, RoomInfo.class, queryWrapper);
 
     }
 }

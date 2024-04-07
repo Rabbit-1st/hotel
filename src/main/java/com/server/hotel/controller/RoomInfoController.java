@@ -2,6 +2,7 @@ package com.server.hotel.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.server.hotel.common.Result;
+import com.server.hotel.entry.RoomInfo;
 import com.server.hotel.entry.RoomInfoVo;
 import com.server.hotel.service.impl.RoomInfoServiceImpl;
 import com.server.hotel.utils.StrUtils;
@@ -20,7 +21,7 @@ public class RoomInfoController {
     RoomInfoServiceImpl roomInfoService;
 
     @GetMapping("list")
-    public Result<IPage<RoomInfoVo>> list(@RequestParam Map<String, Object> request) {
+    public Result<IPage<RoomInfo>> list(@RequestParam Map<String, Object> request) {
         long current;
         long size;
         String order;
@@ -34,7 +35,7 @@ public class RoomInfoController {
         if (null != request.get("prop")) {
             prop = (String) request.get("prop");
         } else {
-            prop = "createTime";
+            prop = "number";
         }
         if (null != request.get("text")) {
             text = (String) request.get("text");
@@ -53,7 +54,7 @@ public class RoomInfoController {
 
         prop = StrUtils.camelToUnderline(prop);
         System.out.println(current + "," + size + "," + order + "," + prop + "," + text);
-        IPage<RoomInfoVo> list = roomInfoService.pageList(current, size, order, prop, text);
+        IPage<RoomInfo> list = roomInfoService.pageList(current, size, order, prop, text);
         return Result.success("查询成功", list);
     }
 
