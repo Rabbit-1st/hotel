@@ -9,6 +9,8 @@ import com.server.hotel.mapper.RoomInfoMapper;
 import com.server.hotel.service.RoomInfoService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class RoomInfoServiceImpl extends MPJBaseServiceImpl<RoomInfoMapper, RoomInfo> implements RoomInfoService {
     public boolean add(RoomInfo roomInfo) {
@@ -16,8 +18,8 @@ public class RoomInfoServiceImpl extends MPJBaseServiceImpl<RoomInfoMapper, Room
 
     }
 
-    public UserInfo remove() {
-        return null;
+    public boolean remove(List<String> ids) {
+        return this.removeByIds(ids);
     }
 
     public boolean edit(RoomInfo roomInfo) {
@@ -38,7 +40,7 @@ public class RoomInfoServiceImpl extends MPJBaseServiceImpl<RoomInfoMapper, Room
         MPJLambdaWrapper<RoomInfo> queryWrapper = new MPJLambdaWrapper<>(RoomInfo.class);
         queryWrapper.selectAll(RoomInfo.class)
                 .like(RoomInfo::getBedType, text)
-                .like(RoomInfo::getName, text)
+                .or().like(RoomInfo::getName, text)
                 .last("ORDER BY " + prop + " " + order);
         return this.selectJoinListPage(page, RoomInfo.class, queryWrapper);
 

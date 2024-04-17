@@ -10,10 +10,11 @@ public class RoomInfo {
     private String roomId;
     private String name;
     private String bedType;
-    private int breakfast;
-    private int wifi;
+    private int breakfast;//0无，1有
+    private int wifi;//0无，1有
     private int number;
     private int price;
     private String people;
     private String policy;
+    private String numberMax;
 }

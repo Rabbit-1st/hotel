@@ -6,6 +6,7 @@ import com.github.yulichang.base.MPJBaseServiceImpl;
 import com.github.yulichang.wrapper.MPJLambdaWrapper;
 import com.server.hotel.entry.OrderInfo;
 import com.server.hotel.entry.OrderInfoVo;
+import com.server.hotel.entry.RoomInfo;
 import com.server.hotel.entry.UserInfo;
 import com.server.hotel.mapper.OrderInfoMapper;
 import com.server.hotel.service.OrderInfoService;
@@ -28,7 +29,9 @@ public class OrderInfoServiceImpl extends MPJBaseServiceImpl<OrderInfoMapper, Or
                 .like(UserInfo::getPhone, phone)
                 .last("ORDER BY " + prop + " " + order)
                 .select(UserInfo::getFirstname, UserInfo::getLastname, UserInfo::getPhone)
-                .leftJoin(UserInfo.class, UserInfo::getId, OrderInfo::getUserId);
+                .leftJoin(UserInfo.class, UserInfo::getId, OrderInfo::getUserId)
+                .selectAs(RoomInfo::getName,OrderInfoVo::getRoomName)
+                .leftJoin(RoomInfo.class, RoomInfo::getRoomId, OrderInfo::getRoomType);
         return this.selectJoinListPage(page, OrderInfoVo.class, queryWrapper);
 
     }
