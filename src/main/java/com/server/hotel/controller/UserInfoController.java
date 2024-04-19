@@ -69,7 +69,7 @@ public class UserInfoController {
             userResult.put("lastname", user.getLastname());
             userResult.put("email", user.getEmail());
             userResult.put("token", token);
-            return Result.success("注册成功", userResult);
+            return Result.success("注册成功，并登录", userResult);
         }
         return Result.fail("注册失败");
     }

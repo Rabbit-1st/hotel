@@ -12,9 +12,10 @@ public class OrderInfo {
     private String orderId;
     private String userId;
     private String roomType;
-    private String status;
+    private int status;
     private Date createTime;
     private Date checkInDate;
     private Date checkOutDate;
     private Date cancelTime;
+    private int totalPrice;
 }
