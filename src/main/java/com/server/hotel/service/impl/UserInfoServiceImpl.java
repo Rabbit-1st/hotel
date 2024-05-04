@@ -35,9 +35,13 @@ public class UserInfoServiceImpl extends MPJBaseServiceImpl<UserInfoMapper, User
         return this.getOne(queryWrapper);
     }
 
-    public UserInfo retrieveByPhone(String phone){
+    public UserInfo retrieveByPhone(String phone) {
         LambdaQueryWrapper<UserInfo> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(UserInfo::getPhone, phone);
         return this.getOne(queryWrapper);
+    }
+
+    public UserInfo getUserInfo(String id) {
+        return this.getById(id);
     }
 }

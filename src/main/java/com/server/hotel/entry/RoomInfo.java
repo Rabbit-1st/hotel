@@ -19,7 +19,7 @@ public class RoomInfo {
     private int price;
     private int people;
     private int policy;//0免费取消，1不可取消
-    private String numberMax;
+    private int numberMax;
     @TableField(exist = false)
     private List<RoomImages> images;
 }

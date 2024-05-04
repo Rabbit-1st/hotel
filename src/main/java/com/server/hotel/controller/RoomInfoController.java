@@ -74,6 +74,7 @@ public class RoomInfoController {
 
     @PostMapping("add")
     public Result<?> add(@RequestBody RoomInfo request) {
+        request.setNumber(request.getNumberMax());
         if (roomInfoService.add(request)) {
             return Result.success("添加成功", null);
         }

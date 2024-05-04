@@ -34,7 +34,7 @@ public class HotelImageController {
             if (StringUtils.isBlank(originName)) {
                 return Result.fail("文件为空");
             }
-            if (!(originName.endsWith(".png") || originName.endsWith(".jpg"))) {
+            if (!(originName.endsWith(".png") || originName.endsWith(".jpg")||originName.endsWith(".PNG")||originName.endsWith(".jpeg")||originName.endsWith(".JPG"))) {
                 return Result.fail("图片格式不正确");
             }
 

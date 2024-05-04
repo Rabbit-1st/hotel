@@ -10,6 +10,8 @@ import com.server.hotel.service.OrderInfoService;
 
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 @Service
 public class OrderInfoServiceImpl extends MPJBaseServiceImpl<OrderInfoMapper, OrderInfo> implements OrderInfoService {
 
@@ -38,6 +40,9 @@ public class OrderInfoServiceImpl extends MPJBaseServiceImpl<OrderInfoMapper, Or
         if (null == orderInfo) {
             return false;
         }
+        if (status == 3) {
+            orderInfo.setCancelTime(new Date());
+        }
         orderInfo.setStatus(status);
         return this.updateById(orderInfo);
     }
@@ -47,7 +52,7 @@ public class OrderInfoServiceImpl extends MPJBaseServiceImpl<OrderInfoMapper, Or
 
     }
 
-    public IPage<OrderInfoByUserVo> pageListByUser(long current, long size, String order, String prop, String status, String phone,String userId) {
+    public IPage<OrderInfoByUserVo> pageListByUser(long current, long size, String order, String prop, String status, String phone, String userId) {
         Page<OrderInfoByUserVo> page = new Page<>(current, size);
         if (order.equals("descending")) {
             order = "DESC";
@@ -56,17 +61,18 @@ public class OrderInfoServiceImpl extends MPJBaseServiceImpl<OrderInfoMapper, Or
         }
         MPJLambdaWrapper<OrderInfo> queryWrapper = new MPJLambdaWrapper<>(OrderInfo.class);
         queryWrapper.selectAll(OrderInfo.class)
-                .eq(OrderInfo::getUserId,userId)
+                .eq(OrderInfo::getUserId, userId)
                 .or().eq(OrderInfo::getStatus, status)
                 .like(UserInfo::getPhone, phone)
                 .last("ORDER BY " + prop + " " + order)
                 .select(UserInfo::getFirstname, UserInfo::getLastname, UserInfo::getPhone)
                 .leftJoin(UserInfo.class, UserInfo::getId, OrderInfo::getUserId)
                 .selectAs(RoomInfo::getName, OrderInfoVo::getRoomName)
-                .select(RoomInfo::getBedType,RoomInfo::getBreakfast,RoomInfo::getWifi,RoomInfo::getPeople,RoomInfo::getPolicy)
+                .select(RoomInfo::getBedType, RoomInfo::getBreakfast, RoomInfo::getWifi, RoomInfo::getPeople, RoomInfo::getPolicy)
                 .leftJoin(RoomInfo.class, RoomInfo::getRoomId, OrderInfo::getRoomType);
         return this.selectJoinListPage(page, OrderInfoByUserVo.class, queryWrapper);
 
     }
+
 
 }

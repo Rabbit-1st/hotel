@@ -70,6 +70,7 @@ public class OrderInfoController {
     public Result<?> update(@RequestBody Map<String, Object> request) {
         String orderId = (String) request.get("orderId");
         int status = (int) request.get("status");
+
         if (orderService.edit(orderId, status)) {
             return Result.success("修改成功", null);
         }
@@ -87,7 +88,7 @@ public class OrderInfoController {
         Date checkOutDate;
 
 
-        System.out.println(request);
+
 
         userId = (String) request.get("userId");
         roomType = (String) request.get("roomType");
@@ -101,7 +102,8 @@ public class OrderInfoController {
             orderInfo.setRoomType(roomType);
             orderInfo.setStatus(status);
             orderInfo.setTotalPrice(totalPrice);
-            orderInfo.setCancelTime(createTime);
+            orderInfo.setCreateTime(createTime);
+            orderInfo.setCancelTime(null);
             orderInfo.setCheckInDate(checkInDate);
             orderInfo.setCheckOutDate(checkOutDate);
             if (orderService.add(orderInfo)) {
